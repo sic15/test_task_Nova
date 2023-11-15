@@ -8,19 +8,15 @@ import json
 gauth = GoogleAuth()
 gauth.LoadCredentialsFile("mycreds.txt")
 if gauth.credentials is None:
-    # Authenticate if they're not there
     gauth.LocalWebserverAuth()
 elif gauth.access_token_expired:
-    # Refresh them if expired
     gauth.Refresh()
 else:
-    # Initialize the saved creds
     gauth.Authorize()
-# Save the current credentials to a file
 gauth.SaveCredentialsFile("mycreds.txt")
 
 # csrf_exempt используется, чтобы отключить проверку CSRF.
-#@csrf_exempt
+@csrf_exempt
 def create_google_drive_document(request):
     if request.method == 'POST':
         try:
