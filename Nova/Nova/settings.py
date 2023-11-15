@@ -17,7 +17,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', default='0')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['62.84.123.59', 'task-nova.sytes.net', '127.0.0.1', 'localhost' ]
 
 
 # Application definition
