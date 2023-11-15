@@ -4,10 +4,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-# Создание объекта GoogleAuth и авторизация через локальный веб-сервер
+# Создание объекта GoogleAuth и авторизация через веб-сервер
 gauth = GoogleAuth()
-#gauth.LocalWebserverAuth()
-
 gauth.LoadCredentialsFile("mycreds.txt")
 if gauth.credentials is None:
     # Authenticate if they're not there
@@ -22,7 +20,7 @@ else:
 gauth.SaveCredentialsFile("mycreds.txt")
 
 # csrf_exempt используется, чтобы отключить проверку CSRF.
-@csrf_exempt
+#@csrf_exempt
 def create_google_drive_document(request):
     if request.method == 'POST':
         try:
