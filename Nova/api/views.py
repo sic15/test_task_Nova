@@ -5,8 +5,21 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 # Создание объекта GoogleAuth и авторизация через локальный веб-сервер
-g_auth = GoogleAuth()
-g_auth.LocalWebserverAuth()
+gauth = GoogleAuth()
+#gauth.LocalWebserverAuth()
+
+gauth.LoadCredentialsFile("mycreds.txt")
+if gauth.credentials is None:
+    # Authenticate if they're not there
+    gauth.LocalWebserverAuth()
+elif gauth.access_token_expired:
+    # Refresh them if expired
+    gauth.Refresh()
+else:
+    # Initialize the saved creds
+    gauth.Authorize()
+# Save the current credentials to a file
+gauth.SaveCredentialsFile("mycreds.txt")
 
 # csrf_exempt используется, чтобы отключить проверку CSRF.
 @csrf_exempt
@@ -19,7 +32,7 @@ def create_google_drive_document(request):
             file_name = data.get('name')
 
             # Создание объекта GoogleDrive с использованием авторизации GoogleAuth
-            drive = GoogleDrive(g_auth)
+            drive = GoogleDrive(gauth)
 
             # Создание объекта файла и установка его содержимого
             file = drive.CreateFile({'title': file_name})
