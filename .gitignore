@@ -1,4 +1,5 @@
 client_secrets.json
+mycreds.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
