@@ -8,10 +8,13 @@ import json
 gauth = GoogleAuth()
 gauth.LoadCredentialsFile("mycreds.txt")
 if gauth.credentials is None:
+    print('1')
     gauth.LocalWebserverAuth()
 elif gauth.access_token_expired:
+    print('2')
     gauth.Refresh()
 else:
+    print('3')
     gauth.Authorize()
 gauth.SaveCredentialsFile("mycreds.txt")
 
@@ -24,7 +27,7 @@ def create_google_drive_document(request):
             data = json.loads(request.body.decode('utf-8'))
             file_data = data.get('data')
             file_name = data.get('name')
-            print(dir(gauth))
+            
             # Создание объекта GoogleDrive с использованием авторизации GoogleAuth
             drive = GoogleDrive(gauth)
 
