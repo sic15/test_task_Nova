@@ -24,7 +24,7 @@ def create_google_drive_document(request):
             data = json.loads(request.body.decode('utf-8'))
             file_data = data.get('data')
             file_name = data.get('name')
-
+            print(dir(gauth))
             # Создание объекта GoogleDrive с использованием авторизации GoogleAuth
             drive = GoogleDrive(gauth)
 
